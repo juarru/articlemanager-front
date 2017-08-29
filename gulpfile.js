@@ -13,14 +13,17 @@ gulp.task("default", function () {
 
     gulp.watch(["src/scss/*.scss", "src/scss/**/*.scss"], ["sass"]); // making gulp watch files and folders.
                                                                     // If a change is made, execute 'sass'.
-    gulp.watch("src/*.html").on("change", browserSync.reload); // watching html changes and reloading browsersync
+    gulp.watch("src/*.html", function () {
+        browserSync.reload();
+    }); // watching html changes and reloading browsersync
 });
 
 // sass compilation
 gulp.task("sass", function(){
     gulp.src("src/scss/style.scss") // origin file
-        .pipe(sass().on("error", sass.logError)) // compiling with gulp-sass
+        .pipe(sass().on("error", function (error) {
+            return notify().write(error);
+        })) // compiling with gulp-sass, raising an error if it happens
         .pipe(gulp.dest("src/css/")) // end file path
-        .pipe(browserSync.stream()) // reload content
-        .pipe(notify("SASS compilado")); // notify when sass is compiled
+        .pipe(browserSync.stream()); // reload content
 });
