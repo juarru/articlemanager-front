@@ -5,7 +5,7 @@ var notify = require("gulp-notify"); // gulp-notify import
 var gulpImport = require("gulp-html-import"); // gulp-html-import import
 
 // main task
-gulp.task("default", ["html","sass"], function () { // execute html and sass tasks before default
+gulp.task("default", ["html", "sass"], function () { // execute html and sass tasks before default
 
     // Init development server
     browserSync.init({
