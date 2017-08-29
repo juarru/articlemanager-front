@@ -14,7 +14,7 @@ gulp.task("default", ["html","sass"], function () { // execute html and sass tas
 
     gulp.watch(["src/scss/*.scss", "src/scss/**/*.scss"], ["sass"]); // making gulp watch files and folders.
                                                                     // If a change is made, execute 'sass'.
-    gulp.watch("src/*.html", "html"); // watching html changes and reloading browsersync
+    gulp.watch("src/*.html", ["html"]); // watching html changes and reloading browsersync
 });
 
 // sass compilation
