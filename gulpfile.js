@@ -1,6 +1,7 @@
 var gulp = require("gulp"); // gulp library import
 var sass = require("gulp-sass"); // gulp-sass library import
 var browserSync = require("browser-sync").create(); // browser-sync library import and create instance
+var notify = require("gulp-notify"); // gulp-notify import
 
 // main task
 gulp.task("default", function () {
@@ -20,5 +21,6 @@ gulp.task("sass", function(){
     gulp.src("src/scss/style.scss") // origin file
         .pipe(sass().on("error", sass.logError)) // compiling with gulp-sass
         .pipe(gulp.dest("src/css/")) // end file path
-        .pipe(browserSync.stream()); // reload content
+        .pipe(browserSync.stream()) // reload content
+        .pipe(notify("SASS compilado")); // notify when sass is compiled
 });
