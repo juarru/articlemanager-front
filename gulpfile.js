@@ -5,7 +5,7 @@ var notify = require("gulp-notify"); // gulp-notify import
 var gulpImport = require("gulp-html-import"); // gulp-html-import import
 
 // main task
-gulp.task("default", ["sass"], function () {
+gulp.task("default", ["html","sass"], function () { // execute html and sass tasks before default
 
     // Init development server
     browserSync.init({
@@ -14,9 +14,7 @@ gulp.task("default", ["sass"], function () {
 
     gulp.watch(["src/scss/*.scss", "src/scss/**/*.scss"], ["sass"]); // making gulp watch files and folders.
                                                                     // If a change is made, execute 'sass'.
-    gulp.watch("src/*.html", function () {
-        browserSync.reload();
-    }); // watching html changes and reloading browsersync
+    gulp.watch("src/*.html", "html"); // watching html changes and reloading browsersync
 });
 
 // sass compilation
