@@ -2,13 +2,14 @@ var gulp = require("gulp"); // gulp library import
 var sass = require("gulp-sass"); // gulp-sass library import
 var browserSync = require("browser-sync").create(); // browser-sync library import and create instance
 var notify = require("gulp-notify"); // gulp-notify import
+var gulpImport = require("gulp-html-import"); // gulp-html-import import
 
 // main task
-gulp.task("default", function () {
+gulp.task("default", ["sass"], function () {
 
     // Init development server
     browserSync.init({
-        server: "src/"
+        server: "dist/"
     });
 
     gulp.watch(["src/scss/*.scss", "src/scss/**/*.scss"], ["sass"]); // making gulp watch files and folders.
@@ -24,6 +25,14 @@ gulp.task("sass", function(){
         .pipe(sass().on("error", function (error) {
             return notify().write(error);
         })) // compiling with gulp-sass, raising an error if it happens
-        .pipe(gulp.dest("src/css/")) // end file path
+        .pipe(gulp.dest("dist/")) // end file path
         .pipe(browserSync.stream()); // reload content
 });
+
+// Copy and import HTML
+gulp.task("html", function () {
+    gulp.src("src/*.html") // origin files
+        .pipe(gulpImport("src/components")) // Files to import
+        .pipe(gulp.dest("dist/")) // end path
+        .pipe(browserSync.stream()); // reload content
+})
