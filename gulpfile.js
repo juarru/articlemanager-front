@@ -9,12 +9,12 @@ gulp.task("default", ["html", "sass"], function () { // execute html and sass ta
 
     // Init development server
     browserSync.init({
-        server: "dist/"
+        server: "dist/" // set the path where execute the server
     });
 
     gulp.watch(["src/scss/*.scss", "src/scss/**/*.scss"], ["sass"]); // making gulp watch files and folders.
                                                                     // If a change is made, execute 'sass'.
-    gulp.watch("src/*.html", ["html"]); // watching html changes and reloading browsersync
+    gulp.watch(["src/*.html", "src/**/*.html"], ["html"]); // watching html changes and reloading browsersync
 });
 
 // sass compilation
@@ -30,7 +30,7 @@ gulp.task("sass", function(){
 // Copy and import HTML
 gulp.task("html", function () {
     gulp.src("src/*.html") // origin files
-        .pipe(gulpImport("src/components")) // Files to import
+        .pipe(gulpImport("src/components/")) // Files to import
         .pipe(gulp.dest("dist/")) // end path
         .pipe(browserSync.stream()); // reload content
 })
